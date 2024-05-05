@@ -3,7 +3,9 @@
 const AddToCart = () => {
   return (
     <>
-      <button onClick={() => console.log("Click")}>Add to Cart</button>
+      <button className="btn btn-primary" onClick={() => console.log("Click")}>
+        Add to Cart
+      </button>
     </>
   );
 };
