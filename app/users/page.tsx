@@ -1,35 +1,21 @@
-type User = {
-  id: number;
-  name: string;
-  email: string;
+import Link from "next/link";
+import { Suspense } from "react";
+import UserTable from "./UserTable";
+
+type Props = {
+  searchParams: { sortOrder: string };
 };
 
-const UsersPage = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users", {
-    cache: "no-store",
-  });
-
-  const users: User[] = await response.json();
-
+const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
   return (
     <>
       <h1>Users</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Link href="/users/new" className="btn">
+        New User
+      </Link>
+      <Suspense fallback={<p>Loading...</p>}>
+        <UserTable sortBy={sortOrder} />
+      </Suspense>
     </>
   );
 };
