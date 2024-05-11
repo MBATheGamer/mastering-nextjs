@@ -22,3 +22,10 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
 
   return NextResponse.json({ id: params.id, name: body["name"] });
 };
+
+export const DELETE = (request: NextRequest, { params }: Props) => {
+  if (params.id > 10)
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+  return NextResponse.json({});
+};
