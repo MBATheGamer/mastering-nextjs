@@ -25,12 +25,12 @@ export const POST = async (request: NextRequest) => {
   if (user)
     return NextResponse.json({ error: "User already exists" }, { status: 400 });
 
-  const newUser = await prisma.user.create({
+  const createdUser = await prisma.user.create({
     data: {
       name: body["name"],
       email: body["email"],
     },
   });
 
-  return NextResponse.json(newUser, { status: 201 });
+  return NextResponse.json(createdUser, { status: 201 });
 };

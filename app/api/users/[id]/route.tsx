@@ -27,10 +27,26 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  if (parseInt(params.id) > 10)
+  const user = await prisma.user.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+
+  if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  return NextResponse.json({ id: params.id, name: body["name"] });
+  const updatedUser = prisma.user.update({
+    where: {
+      id: parseInt(params.id),
+    },
+    data: {
+      name: body["name"],
+      email: body["email"],
+    },
+  });
+
+  return NextResponse.json(updatedUser);
 };
 
 export const DELETE = (request: NextRequest, { params }: Props) => {
