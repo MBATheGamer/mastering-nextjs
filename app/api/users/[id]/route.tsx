@@ -49,9 +49,21 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   return NextResponse.json(updatedUser);
 };
 
-export const DELETE = (request: NextRequest, { params }: Props) => {
-  if (parseInt(params.id) > 10)
+export const DELETE = async (request: NextRequest, { params }: Props) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+
+  if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+  await prisma.user.delete({
+    where: {
+      id: user.id,
+    },
+  });
 
   return NextResponse.json({});
 };
