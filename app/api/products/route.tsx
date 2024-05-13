@@ -1,11 +1,11 @@
+import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
 
-export const GET = (request: NextRequest) => {
-  return NextResponse.json([
-    { id: 1, name: "Milk", price: 2.5 },
-    { id: 2, name: "Bread", price: 3.5 },
-  ]);
+export const GET = async (request: NextRequest) => {
+  const products = await prisma.product.findMany();
+
+  return NextResponse.json(products);
 };
 
 export const POST = async (request: NextRequest) => {
