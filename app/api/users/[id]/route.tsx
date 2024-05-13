@@ -36,7 +36,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  const updatedUser = prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: {
       id: parseInt(params.id),
     },

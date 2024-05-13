@@ -36,7 +36,7 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   if (!product)
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
 
-  const updatedProduct = prisma.product.update({
+  const updatedProduct = await prisma.product.update({
     where: {
       id: parseInt(params.id),
     },
@@ -49,9 +49,21 @@ export const PUT = async (request: NextRequest, { params }: Props) => {
   return NextResponse.json(updatedProduct);
 };
 
-export const DELETE = (request: NextRequest, { params }: Props) => {
-  if (parseInt(params.id) > 10)
+export const DELETE = async (request: NextRequest, { params }: Props) => {
+  const product = await prisma.product.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+
+  if (!product)
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
+
+  await prisma.product.delete({
+    where: {
+      id: product.id,
+    },
+  });
 
   return NextResponse.json({});
 };
