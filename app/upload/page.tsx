@@ -21,6 +21,11 @@ const UploadPage = () => {
         />
       )}
       <CldUploadWidget
+        options={{
+          sources: ["local"],
+          multiple: false,
+          maxFiles: 5,
+        }}
         uploadPreset={uploadPreset}
         onSuccess={(result, widget) => {
           if (result.event !== "success") return;
