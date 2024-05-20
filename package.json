@@ -7,7 +7,7 @@
     "build": "bun x --bun next build",
     "start": "bun x --bun next start",
     "lint": "bun x --bun next lint",
-    "preview-email": "bun x --bun email dev -p 3030"
+    "preview-email": "email dev -p 3030"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
