@@ -1,7 +1,4 @@
-"use client";
-
 import { Metadata } from "next";
-import { useState } from "react";
 
 export const generateMetadata = async () => {
   const product = await fetch("");
@@ -13,8 +10,6 @@ export const generateMetadata = async () => {
 };
 
 export default function Home() {
-  const [isVisible, setVisible] = useState(false);
-
   return (
     <main className="relative h-screen">
       <h1>Hello, World</h1>
